@@ -18,9 +18,9 @@ void switch_init()                                    // setup switch
   P1REN |= SWITCHES;                                  // enables resistors for switches
   P1IE |= SWITCHES;                                   // enables interrupts from switches
   P1OUT |= SWITCHES;                                  // pull-ups for switches
-  P1DIR &= ~SWITCHES;                                 // set switches' bits for output
+  P1DIR &= ~SWITCHES;                                 // set switches' bits for input
   switch_update_interrupt_sense();
-  led_updates();
+  led_update();
 }
 
 void switch_interrupt_handler()
