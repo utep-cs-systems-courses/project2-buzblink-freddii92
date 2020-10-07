@@ -8,15 +8,14 @@ LDFLAGS        = -L/opt/ti/msp430_gcc/include
 CC             = msp430-elf-gcc
 AS             = msp430-elf-as
 
-all: blink.elf button.elf buzzer.elf
-	(cd timerLib && make install)
+all: toy.elf
 
 # additional rules for files
-blink.elf: ${COMMON_OBJECTS} main.o stateMachine.o led.o wdInterruptHandler.o p1_interrupt_handler.o switches.o buzzer.o .. /lib/linTimer.a
+toy.elf: ${COMMON_OBJECTS} main.o stateMachine.o led.o wdInterruptHandler.o p1_interrupt_handler.o switches.o buzzer.o ../lib/libTimer.a
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
-load: blink.elf button.elf buzzer.elf
-	msp430loader.sh blink.elf button.elf
+load: toy.elf
+	msp430loader.sh toy.elf
 
 clean: $^
 	rm -f *.o *.elf
