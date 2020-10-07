@@ -12,7 +12,7 @@ char toggle_green()
   
 }
 
-void stage_advance()
+void state_advance()
 {
   
 }
