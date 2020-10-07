@@ -11,15 +11,15 @@ void buzzer_init()
     P2SEL.6 must be 1
     Also: p2.6 direction must be output
   */
-  timerAUpmode();                       // used to drive speaker
+  timerAUpmode();                         // used to drive speaker
   P2SEL2 &= ~(BIT6 | BIT7);
   P2SEL &= ~BIT7;
   P2SEL |= BIT6;
-  P2DIR = BIT6;                         // enable output to speaker (P2.6)
+  P2DIR = BIT6;                           // enable output to speaker (P2.6)
 }
 
-void buzzer_set_period(short cycles)    // buzzer clock = 2MHz. (period of 1k results in 2kHz tone)
+void buzzer_set_period(short cycles)      // buzzer clock 2MHz. (period of 1k results in 2kHz tone)
 {
   CCR0 = cycles;
-  CCR1 = cycles >> 1;                   // one half cycles
+  CCR1 = cycles >> 1;                     // one half cycles
 }
