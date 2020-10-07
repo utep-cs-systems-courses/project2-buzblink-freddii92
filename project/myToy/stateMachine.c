@@ -4,15 +4,15 @@
 
 char toggle_red()
 {
-
+  
 }
 
 char toggle_green()
 {
-
+  
 }
 
-void state_advance()
+void stage_advance()
 {
-
+  
 }
