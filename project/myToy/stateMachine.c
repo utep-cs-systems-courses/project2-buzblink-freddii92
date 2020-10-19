@@ -4,6 +4,8 @@
 #include "buzzer.h"
 #include "switches.h"
 
+static int x = 500;
+
 char toggle_siren()           // toggle red and green LED to simulate siren
 {
   static char state = 0;
@@ -12,20 +14,22 @@ char toggle_siren()           // toggle red and green LED to simulate siren
   case 0:
     red_on = 1;
     green_on = 0;
-    buzzer_set_period(500);
-    state = 1;
-    break;
+    up_state();
   case 1:
+    red_on = 1;
+    green_on = 0;
+    state++;
+    break;
+  case 2:
     red_on = 0;
     green_on = 1;
     buzzer_set_period(1000);
     state = 0;
-    break;
   }
   return 1;
 }
 
-char toggle_red()           // toggle red and green LED to simulate siren
+char toggle_lights()           // toggle red and green LED to simulate siren
 {
   static char state = 0;
 
@@ -44,30 +48,24 @@ char toggle_red()           // toggle red and green LED to simulate siren
   return 1;
 }
 
-char toggle_green()
+void up_state()
 {
-  char changed = 0;
-  if (red_on) {
-    green_on ^= 1;
-    changed = 1;
-  }
-  return changed;
+  buzzer_set_period(2000000/x);
 }
 
 void state_advance()        // alternate between toggling red and green LEDs
 {
-  char changed = 0;
-
-  static enum {R = 0, G = 1} color = G;
-  
-  changed = toggle_red();
-
-  led_changed = changed;
-  led_update();
-  
   if (switch_state_changed) {
     toggle_siren();
     led_changed = 1;
     led_update();
   }
+}
+
+void dimmer_advance()
+{
+  char changed = 0;
+  changed = toggle_lights();
+  led_changed = changed;
+  led_update();
 }

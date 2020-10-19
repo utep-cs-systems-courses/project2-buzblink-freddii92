@@ -1,6 +1,7 @@
 #include <msp430.h>
 #include "led.h"
 #include "switches.h"
+#include "stateMachine.h"
 
 unsigned char red_on = 0, green_on = 0;
 unsigned char led_changed = 0;
@@ -19,7 +20,7 @@ void led_update()
   if (led_changed) {
     char ledFlags = redVal[red_on] | greenVal[green_on];
 
-    P1OUT &= (0xff^LEDS) | ledFlags;   // clear bit for off LEDs
+    P1OUT &= (0xff^LEDS) | ledFlags;   // clear bits for off LEDs
     P1OUT |= ledFlags;                 // set bit for on LEDs
     led_changed = 0;
   }
