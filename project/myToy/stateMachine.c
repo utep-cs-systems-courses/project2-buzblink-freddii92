@@ -4,6 +4,18 @@
 #include "buzzer.h"
 #include "switches.h"
 
+#define E 750
+#define G 630
+#define LG 1260
+#define A 560
+#define LA 1130
+#define C 950
+#define B 500
+#define LB 1000
+#define F 710
+#define D 840
+
+
 char red_led_on()                      // turning red LED on and green LED off
 {
   red_on = 1;
@@ -39,28 +51,36 @@ void state_advance()               // alternate between toggling red and green L
   led_changed = 1;
 
   switch (changed) {
-  case 0:
-    red_led_on();
-    changed++;
-    break;
-  case 1:
-    green_led_on();
-    changed++;
-    break;
-  case 2:
-    both_on();
-    changed++;
-    break;
-  case 3:
-    both_off();
-    changed++;
-    break;
-  case 4:
-    both_on();
-    changed++;
-    break;
-  default:
-    changed = 0;
+  case 0: buzzer_set_period(C); red_led_on();    changed++; break;
+  case 1: buzzer_set_period(0); both_off();      changed++; break;
+  case 2: buzzer_set_period(C); red_led_on();    changed++; break;
+  case 3: buzzer_set_period(0); both_off();      changed++; break;
+  case 4: buzzer_set_period(G); green_led_on();  changed++; break;
+  case 5: buzzer_set_period(0); both_off();      changed++; break;
+  case 6: buzzer_set_period(G); green_led_on();  changed++; break;
+  case 7: buzzer_set_period(0); both_off();      changed++; break;
+  case 8: buzzer_set_period(A); red_led_on();    changed++; break;
+  case 9: buzzer_set_period(0); both_off();      changed++; break;
+  case 10: buzzer_set_period(A); green_led_on(); changed++; break;
+  case 11: buzzer_set_period(0); both_off();     changed++; break;
+  case 12: buzzer_set_period(G); both_on();      changed++; break;
+  case 13: changed++; break;
+  case 14: buzzer_set_period(0); both_off();     changed++; break;
+  case 15: buzzer_set_period(F); red_led_on();   changed++; break;
+  case 16: buzzer_set_period(0); both_off();     changed++; break;
+  case 17: buzzer_set_period(F); red_led_on();   changed++; break;
+  case 18: buzzer_set_period(0); both_off();     changed++; break;
+  case 19: buzzer_set_period(E); green_led_on(); changed++; break;
+  case 20: buzzer_set_period(0); both_off();     changed++; break;
+  case 21: buzzer_set_period(E); green_led_on(); changed++; break;
+  case 22: buzzer_set_period(0); both_off();     changed++; break;
+  case 23: buzzer_set_period(D); red_led_on();   changed++; break;
+  case 24: buzzer_set_period(0); both_off();     changed++; break;
+  case 25: buzzer_set_period(D); green_led_on(); changed++; break;
+  case 26: buzzer_set_period(0); both_off();     changed++; break;
+  case 27: buzzer_set_period(C); both_on();      changed++; break;
+  case 28: changed++; break;
+  case 29: buzzer_set_period(0); both_off();     changed = 0; break;
   }
   
   led_update();
