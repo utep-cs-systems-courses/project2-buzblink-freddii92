@@ -36,9 +36,32 @@ void state_advance()               // alternate between toggling red and green L
 {
   static char changed = 0;
 
-  //red_led_on();
-  //green_led_on();
   led_changed = 1;
+
+  switch (changed) {
+  case 0:
+    red_led_on();
+    changed++;
+    break;
+  case 1:
+    green_led_on();
+    changed++;
+    break;
+  case 2:
+    both_on();
+    changed++;
+    break;
+  case 3:
+    both_off();
+    changed++;
+    break;
+  case 4:
+    both_on();
+    changed++;
+    break;
+  default:
+    changed = 0;
+  }
   
   led_update();
 }
