@@ -44,7 +44,13 @@ char both_off()                        // turning both LEDs off
   led_update();
 }
 
-void state_advance()               // alternate between toggling red and green LEDs
+void idle_state()
+{
+  both_off();
+  buzzer_set_period(0);
+}
+
+void twinkle_advance()               // alternate between toggling red and green LEDs
 {
   static char changed = 0;
 
@@ -86,3 +92,16 @@ void state_advance()               // alternate between toggling red and green L
   led_update();
 }
 
+void dimmer_advance()
+{
+  static char changed = 0;
+  
+  led_changed = 1;
+  
+  switch(changed) {
+  case 0: red_led_on(); changed++; break;
+  case 1: green_led_on(); changed = 0; break;
+  }
+  
+  led_update();
+}

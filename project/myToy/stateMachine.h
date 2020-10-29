@@ -1,7 +1,8 @@
 #ifndef stateMachine_included
 #define stateMachine_included
 
-void state_advance();
-void state_advance_without_switch();
+void twinkle_advance();
+void idle_state();
+void dimmer_advance();
 
 #endif // included
