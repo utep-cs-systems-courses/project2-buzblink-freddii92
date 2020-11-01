@@ -4,7 +4,7 @@
 #include "buzzer.h"
 #include "switches.h"
 
-#define E 750
+#define E 750                           // defining some notes
 #define G 630
 #define LG 1260
 #define A 560
@@ -44,19 +44,19 @@ char both_off()                        // turning both LEDs off
   led_update();
 }
 
-void idle_state()
+void idle_state()                     // idle state (nothing happens)
 {
   both_off();
   buzzer_set_period(0);
 }
 
-void twinkle_advance()               // alternate between toggling red and green LEDs
+void twinkle_advance()                // alternate between toggling red and green LEDs
 {
   static char changed = 0;
 
   led_changed = 1;
 
-  switch (changed) {
+  switch (changed) {                  // switch statement to play notes
   case 0: buzzer_set_period(C); red_led_on();    changed++; break;
   case 1: buzzer_set_period(0); both_off();      changed++; break;
   case 2: buzzer_set_period(C); red_led_on();    changed++; break;
@@ -92,13 +92,13 @@ void twinkle_advance()               // alternate between toggling red and green
   led_update();
 }
 
-void dimmer_advance()
+void dimmer_advance()                 // dim LEDs
 {
   static char changed = 0;
   
   led_changed = 1;
   
-  switch(changed) {
+  switch(changed) {                   // switch statement to toggle LEDs
   case 0: red_led_on(); changed++; break;
   case 1: green_led_on(); changed = 0; break;
   }
@@ -106,13 +106,13 @@ void dimmer_advance()
   led_update();
 }
 
-void happy_birthday()
+void happy_birthday()                 // happy birthday song
 {
   static char changed = 0;
 
   led_changed = 1;
 
-  switch (changed) {
+  switch (changed) {                  // switch statement to play notes
   case 0: buzzer_set_period(G); red_led_on();    changed++; break;
   case 1: buzzer_set_period(0); both_off();      changed++; break;
   case 2: buzzer_set_period(G); red_led_on();    changed++; break;
@@ -165,5 +165,19 @@ void happy_birthday()
   case 49: buzzer_set_period(0); both_off;       changed = 0; break;
   }
 
+  led_update();
+}
+
+void siren()                          // siren plays
+{
+  static char changed = 0;
+
+  led_changed = 1;
+
+  switch (changed) {                  // switch statement to toggle LEDs and sounds
+  case 0: red_led_on(); buzzer_set_period(5000); changed++; break;
+  case 1: green_led_on(); buzzer_set_period(1000); changed = 0; break;
+  }
+  
   led_update();
 }

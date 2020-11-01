@@ -30,23 +30,28 @@ void switch_interrupt_handler()
 {
   char p2val = switch_update_interrupt_sense();
   
-  if (p2val & SW1 && p2val & SW2 && p2val & SW3) {
+  if (p2val & SW1 && p2val & SW2 && p2val & SW3 && p2val & SW4) { // idle state if not switch push
     idle_state();
     switch_state_down = 0;
   }
-  else if (!(p2val & SW1)) {
+  else if (!(p2val & SW1)) {                          // if switch S1 is pushed
     speed = 80;
-    twinkle_advance();
+    twinkle_advance();                                // twinkle little star plays
     switch_state_down = 1;
   }
-  else if (!(p2val & SW2)) {
+  else if (!(p2val & SW2)) {                          // if switch S2 is pushed
     speed = 4;
-    dimmer_advance();
+    dimmer_advance();                                 // LEDs will dim
     switch_state_down = 1;
   }
-  else if (!(p2val & SW3)) {
+  else if (!(p2val & SW3)) {                          // if switch S3 is pushed
     speed = 80;
-    happy_birthday();
+    happy_birthday();                                 // happy birthday plays
+    switch_state_down = 1;
+  }
+  else if (!(p2val & SW4)) {                          // is switch S4 is pushed
+    speed = 50;
+    siren();                                          // siren will play
     switch_state_down = 1;
   }
   

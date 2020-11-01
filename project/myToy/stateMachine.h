@@ -4,5 +4,7 @@
 void twinkle_advance();
 void idle_state();
 void dimmer_advance();
+void happy_birthday();
+void siren();
 
 #endif // included
